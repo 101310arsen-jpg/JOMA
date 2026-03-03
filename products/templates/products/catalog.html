@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOMA - Официальный магазин</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>JOMA - Спортивная экипировка</h1>
+
+
+        <div class="filter">
+            <h2>Фильтр по категории:</h2>
+            <a href="{% url 'catalog' %}" class="filter-btn {% if not selected_category %}active{% endif %}">Все товары</a>
+            
+            {% for category in categories %}
+                <a href="{% url 'catalog_category' category %}" 
+                   class="filter-btn {% if selected_category == category %}active{% endif %}">
+                    {{ category }}
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="product-grid">
+            {% if products %}
+                {% for product in products %}
+                    <div class="product-card">
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
+                        {% else %}
+                            <div class="product-image-placeholder">
+                                <span>Нет изображения</span>
+                            </div>
+                        {% endif %}
+                        <div class="product-info">
+                            <div class="product-name">{{ product.name }}</div>
+                            <div class="product-category">Категория: {{ product.category }}</div>
+                            <div class="product-price">{{ product.price }} ₽</div>
+                            <p>{{ product.description|default:"Описание отсутствует" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-products">Товары не найдены</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
