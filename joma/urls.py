@@ -23,3 +23,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+=======
+from rest_framework import routers
+from products.views import ProductViewSet
+
+router = routers.DefaultRouter()
+router.register(r'products', ProductViewSet)
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+]
