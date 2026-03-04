@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from .models import Product
+from rest_framework import viewsets
+from .models import Product
+from .serializers import ProductSerializer
 
 def catalog_view(request, category=None):
     if category:
@@ -18,13 +21,13 @@ def catalog_view(request, category=None):
     }
     
     return render(request, 'products/catalog.html', context)
-=======
-from rest_framework import viewsets
-from .models import Product
-from .serializers import ProductSerializer
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+def about_view(request):
+    return render(request, 'products/about.html')
 
 # Create your views here.

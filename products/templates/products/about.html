@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} О нас — JOMA{% endblock %}
+
+{% block content %}
+    <text-center mb-5">
+        <h1 class="display-4 fw-bold">О компании JOMA</h1>
+        <p class="lead text-muted">Создаем спортивную экипировку для профессиональных спортсменов</p>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3 class="mb-3">Наша история</h3>
+            <p>Компания JOMA была основана в 1965 году в Испании. С тех пор мы производим спортивную экипировку высочайшего качества для профессиональных спортсменов по всему миру.</p>
+            <p>Наша миссия — помочь спортсменам достичь своих пределов, обеспечивая их надежной и комфортной экипировкой.</p>
+        </div>
+        <div class="col-md-6">
+            <h3 class="mb-3">Наши ценности</h3>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Качество
+                    <span class="badge bg-primary rounded-pill">⭐⭐⭐⭐⭐</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Надежность
+                    <span class="badge bg-primary rounded-pill">⭐⭐⭐⭐⭐</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Инновации
+                    <span class="badge bg-primary rounded-pill">⭐⭐⭐⭐⭐</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <img src="https://via.placeholder.com/800x400?text=Команда+JOMA" 
+             class="img-fluid rounded shadow" 
+             alt="Команда JOMA">
+        <p class="mt-3 text-muted">Наша команда профессионалов, работающих над созданием лучшей спортивной экипировки</p>
+    </div>
+{% endblock %}
