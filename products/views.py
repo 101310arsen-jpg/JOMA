@@ -3,6 +3,8 @@ from .models import Product
 from rest_framework import viewsets
 from .models import Product
 from .serializers import ProductSerializer
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 def catalog_view(request, category=None):
     if category:
@@ -26,6 +28,11 @@ def catalog_view(request, category=None):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['category']  
+    search_fields = ['name', 'description'] 
+    ordering_fields = ['price', 'name']  
 
 def about_view(request):
     return render(request, 'products/about.html')
