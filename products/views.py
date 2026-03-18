@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Product
-from rest_framework import viewsets
-from .serializers import ProductSerializer
 from django.db.models import Q
-
+from .models import Product
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from .serializers import ProductSerializer
 
 def catalog_view(request, category=None):
     products = Product.objects.all()
@@ -33,6 +33,11 @@ def catalog_view(request, category=None):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['category']  
+    search_fields = ['name', 'description'] 
+    ordering_fields = ['price', 'name']  
 
 
 def about_view(request):

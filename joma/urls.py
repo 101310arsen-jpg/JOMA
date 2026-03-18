@@ -12,4 +12,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),
     path('api/', include(router.urls)), 
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
