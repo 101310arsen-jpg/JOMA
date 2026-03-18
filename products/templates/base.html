@@ -1,33 +1,65 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="ru">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}JOMA — Спортивная экипировка{% endblock %}</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark mb-4">
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{% url 'catalog' %}">
-                <img src="https://via.placeholder.com/40x40?text=JOMA" alt="JOMA" width="40" height="40" class="d-inline-block align-text-top me-2">
-                JOMA
+                <i class="bi bi-sport"></i> JOMA
             </a>
-            <div class="d-flex align-items-center">
-                <ul class="navbar-nav me-auto d-flex flex-row">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'catalog' %}active{% endif %}" 
+                           href="{% url 'catalog' %}">
+                            <i class="bi bi-grid-3x3-gap"></i> Каталог
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">О нас</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" 
+                           href="{% url 'about' %}">
+                            <i class="bi bi-info-circle"></i> О нас
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" 
+                           href="{% url 'contact' %}">
+                            <i class="bi bi-telephone"></i> Контакты
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" 
+                           href="{% url 'cart' %}">
+                            <i class="bi bi-cart"></i> Корзина
+                            {% if request.session.cart %}
+                                <span class="badge bg-danger">{{ request.session.cart|length }}</span>
+                            {% endif %}
+                        </a>
                     </li>
                 </ul>
-                <span class="text-white me-3">📞 +7 (777) 123-45-67</span>
-                <a href="#" class="btn btn-outline-light">Корзина (0)</a>
             </div>
         </div>
     </nav>

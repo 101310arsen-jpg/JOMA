@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакты — JOMA{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Контакты</h1>
+        <p class="lead text-muted">Свяжитесь с нами для любых вопросов</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="mb-4">Наш адрес</h3>
+                    <p class="fs-5">📍 г. Бишкек, ул. Токтогула 123</p>
+                    
+                    <h3 class="mb-4 mt-4">Телефон</h3>
+                    <p class="fs-5">📞 +996 (555) 123-456</p>
+                    
+                    <h3 class="mb-4 mt-4">Email</h3>
+                    <p class="fs-5">✉️ info@joma.kg</p>
+                    
+                    <h3 class="mb-4 mt-4">Режим работы</h3>
+                    <p class="fs-5">🕒 Пн-Пт: 9:00 - 18:00</p>
+                    <p class="fs-5">🕒 Сб: 10:00 - 15:00</p>
+                    <p class="fs-5 text-muted">Вс: выходной</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
