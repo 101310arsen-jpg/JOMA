@@ -5,6 +5,16 @@ from .models import Product
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import ProductSerializer
+from django.core.cache import cache
+
+
+def catalog_view(request, category=None):
+    cache_key = f"catalog_{category or 'all'}_{request.GET.get('search', '')}"
+    products = cache.get(cache_key)
+    
+    if products is None:
+        products = Product.objects.all()
+        cache.set(cache_key, products, 60 * 5)
 
 def catalog_view(request, category=None):
     products = Product.objects.all()
