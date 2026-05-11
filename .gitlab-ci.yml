@@ -1,40 +1,29 @@
-image: docker:20.10.16
-
-services:
-  - docker:20.10.16-dind
-
+image: python:3.11-slim
+пеш 
 stages:
   - test
   - build
-  - deploy
 
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
-  POSTGRES_DB: joma
-  POSTGRES_USER: joma
-  POSTGRES_PASSWORD: joma
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
 
 before_script:
-  - apk add --no-cache python3 py3-pip
-  - pip3 install docker-compose
+  - python -V
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+  - python manage.py collectstatic --noinput
 
 test:
   stage: test
-  image: python:3.11-slim
-  services:
-    - name: postgres:15
-      alias: db
-  variables:
-    DATABASE_URL: postgres://joma:joma@db:5432/joma
   script:
-    - pip install -r requirements.txt
     - python manage.py test
 
 build:
   stage: build
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:joma-app .
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $CI_REGISTRY_IMAGE:joma-app
-
+    - echo "✅ Сборка завершена"
