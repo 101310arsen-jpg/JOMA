@@ -1,15 +1,29 @@
 from rest_framework import serializers
-from .models import Product
+from .models import Product, Category, Color, Size
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'slug']
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = ['id', 'name', 'hex_code']
+
+class SizeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Size
+        fields = ['id', 'name']
 
 class ProductSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    colors = ColorSerializer(many=True, read_only=True)
+    sizes = SizeSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Product
         fields = '__all__'
-
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'price', 'category', 'image_url']
     
     def validate_price(self, value):
         if value <= 0:

@@ -66,6 +66,16 @@ INSTALLED_APPS = [
     'products',
 ]
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -101,12 +111,8 @@ WSGI_APPLICATION = 'joma.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'joma'),
-        'USER': os.getenv('POSTGRES_USER', 'joma'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'joma'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
